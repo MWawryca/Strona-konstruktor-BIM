@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konstruktor BIM – Portfolio</title>
+
+<style>
+:root {
+  /* --- Jasny motyw domyślny --- */
+  --bg: #f5f6fa;
+  --card: #ffffff;
+  --text: #0b132b;
+  --muted: #64748b;
+  --primary: #f97316;
+  --primary-dark: #ea580c;
+  --navy: #0f172a;
+  --border: #e2e8f0;
+
+  /* --- Ciemny motyw --- */
+  --bg-dark: #0b132b;
+  --card-dark: #111827;
+  --text-dark: #e5e7eb;
+  --muted-dark: #94a3b8;
+  --primary-dark-mode: #f97316;
+}
+
+* { box-sizing: border-box; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  transition: background 0.3s, color 0.3s;
+}
+
+.dark-mode {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* ---------- NAVBAR ---------- */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(245,246,250,0.95);
+  backdrop-filter: blur(6px);
+  border-bottom:1px solid var(--border);
+}
+
+.nav-inner{
+  max-width: 1040px;
+  margin:0 auto;
+  padding: 12px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.brand{
+  font-weight:800;
+  letter-spacing:.3px;
+  color: var(--text);
+}
+
+.nav-links a{
+  margin-left:14px;
+  text-decoration:none;
+  color: var(--text);
+  font-size:.95rem;
+  padding:6px 10px;
+  border-radius:999px;
+  transition:.2s background;
+}
+
+.nav-links a:hover{
+  background: var(--primary);
+  color: white;
+}
+
+/* ---------- HEADER ---------- */
+header{
+  padding: 80px 20px 60px;
+  text-align:center;
+}
+
+header h1{
+  margin:0;
+  font-size: 2.8rem;
+  font-weight: 800;
+}
+
+header p{
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+/* ---------- MAIN CONTENT ---------- */
+main{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+section{
+  background: var(--card);
+  margin: 26px 0;
+  padding: 28px 30px;
+  border-radius: 18px;
+  border:1px solid var(--border);
+  box-shadow: 0 15px 30px rgba(0,0,0,.08);
+  opacity:0;
+  transform: translateY(30px);
+  transition: .6s ease, background 0.3s, color 0.3s;
+}
+
+.dark-mode section {
+  background: var(--card-dark);
+  border-color: #1f2937;
+}
+
+section.revealed{
+  opacity:1;
+  transform: translateY(0);
+}
+
+h2{
+  margin:0 0 12px 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  border-left:4px solid var(--primary);
+  padding-left:10px;
+  transition: color 0.3s;
+}
+
+.dark-mode h2{
+  color: var(--text-dark);
+}
+
+/* ---------- PROJECTS ---------- */
+.projects{
+  display:grid;
+  gap:20px;
+  grid-template-columns: repeat(auto-fit,minmax(270px,1fr));
+  margin-top:15px;
+}
+
+.project-box{
+  padding:20px;
+  border-radius:16px;
+  background: #f1f5f9;
+  border:1px solid var(--border);
+  box-shadow: 0 12px 24px rgba(0,0,0,.06);
+  transition:.25s transform, .25s box-shadow, background 0.3s, color 0.3s;
+}
+
+.dark-mode .project-box{
+  background: var(--navy);
+  border-color: #1f2937;
+}
+
+.project-box:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 24px 34px rgba(0,0,0,.1);
+}
+
+.project-box h3{
+  margin-top:0;
+}
+
+.btn-group{
+  margin-top:10px;
+}
+
+.btn-group a{
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:999px;
+  background: var(--primary);
+  color:black;
+  text-decoration:none;
+  font-weight:700;
+  font-size:.9rem;
+  transition:.2s background, .2s color;
+}
+
+.btn-group a:hover{
+  background: var(--primary-dark);
+  color:white;
+}
+
+/* ---------- SKILLS ---------- */
+.skill{
+  margin:12px 0;
+}
+
+.skill-name{
+  font-weight:600;
+  margin-bottom:4px;
+}
+
+.skill-bar{
+  background: var(--border);
+  border-radius: 999px;
+  overflow:hidden;
+  height:12px;
+}
+
+.skill-bar-fill{
+  height:12px;
+  background: var(--primary);
+  width:0;
+  border-radius:999px;
+  transition: width 1.2s ease;
+}
+
+/* ---------- TIMELINE ---------- */
+.timeline{
+  position: relative;
+  margin: 20px 0 20px 20px;
+}
+
+.timeline::before{
+  content:"";
+  position: absolute;
+  top:0; left:0;
+  width:4px;
+  height:100%;
+  background: var(--primary);
+}
+
+.timeline-item{
+  margin-bottom: 20px;
+  padding-left:20px;
+  position: relative;
+}
+
+.timeline-item::before{
+  content:"";
+  position:absolute;
+  left:-12px;
+  top:3px;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background: var(--primary);
+}
+
+/* ---------- SERVICES ---------- */
+.services{
+  display:grid;
+  gap:20px;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  margin-top:15px;
+}
+
+.service-box{
+  padding:15px 18px;
+  border-radius:14px;
+  background: #f1f5f9;
+  text-align:center;
+  border:1px solid var(--border);
+  transition:.2s transform, .2s box-shadow, background 0.3s;
+}
+
+.dark-mode .service-box{
+  background: var(--navy);
+  border-color:#1f2937;
+}
+
+.service-box:hover{
+  transform: translateY(-3px);
+  box-shadow:0 15px 25px rgba(0,0,0,.08);
+}
+
+/* ---------- CONTACT FORM ---------- */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+input, textarea{
+  padding:10px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  font-family:inherit;
+}
+
+button{
+  padding:10px 18px;
+  background: var(--primary);
+  border:none;
+  border-radius:999px;
+  color:black;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s background, .2s color;
+}
+
+button:hover{
+  background: var(--primary-dark);
+  color:white;
+}
+
+/* ---------- DARK MODE SWITCH ---------- */
+#darkModeToggle{
+  cursor:pointer;
+  padding:6px 12px;
+  border-radius:12px;
+  border:none;
+  background: var(--primary);
+  color:black;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-inner">
+    <div class="brand">Mateusz Wawryca</div>
+    <div class="nav-links">
+      <a href="#o-mnie">O mnie</a>
+      <a href="#projekty">Projekty</a>
+      <a href="#skills">Umiejętności</a>
+      <a href="#timeline">Oś czasu</a>
+      <a href="#services">Usługi</a>
+      <a href="#services">Kup Teraz</a>
+      <a href="#ebook">Ebook</a>
+      <a href="#kontakt">Kontakt</a>
+      <button id="darkModeToggle">🌙 Tryb</button>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <h1>Konstruktor BIM</h1>
+  <p>Modelowanie • Koordynacja • Dokumentacja wykonawcza</p>
+</header>
+
+<main>
+
+<!-- O MNIE -->
+<section id="o-mnie">
+<h2>O mnie</h2>
+<p>Jestem konstruktorem specjalizującym się w technologiach BIM. Tworzę precyzyjne modele konstrukcyjne, koordynuję branże oraz przygotowuję dokumentację warsztatową i wykonawczą.</p>
+</section>
+
+<!-- PROJEKTY -->
+<section id="projekty">
+<h2>Projekty</h2>
+<div class="projects">
+  <div class="project-box">
+    <h3>Lista projektów</h3>
+    <p>Projekty PW, Model budynków w 3D</p>
+    <div class="btn-group"><a href="https://i3ip4i.short.gy/cesium-stories">Lista projektów</a></div>
+  </div>
+    <div class="project-box">
+    <h3>Digital Twin Port Gdynia</p>
+    <p>Projekty PW, Model budynków w 3D</p>
+    <div class="btn-group"><a href="https://www.port.gdynia.pl/port-gdynia-pionierem-cyfryzacji/">Zobacz</a></div>
+  </div>
+</div>
+<div class="btn-group" style="margin-top:20px;">
+  <a href="https://service.usbim.com/link/ChI3JvacETOgt6JzWNVCnxeF">Zobacz CV</a>
+</div>
+</section>
+
+<!-- UMIEJĘTNOŚCI -->
+<section id="skills">
+<h2>Umiejętności</h2>
+<div class="skill">
+  <div class="skill-name">Revit</div>
+  <div class="skill-bar"><div class="skill-bar-fill" style="width:95%"></div></div>
+</div>
+<div class="skill">
+  <div class="skill-name">Robot Structural Analysis</div>
+  <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
+</div>
+<div class="skill">
+  <div class="skill-name">Navisworks</div>
+  <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+</div>
+</section>
+
+<!-- OŚ CZASU -->
+<section id="timeline">
+<h2>Oś czasu kariery</h2>
+<div class="timeline">
+  <div class="timeline-item"><strong>2019:</strong> Pierwsze projekty BIM</div>
+  <div class="timeline-item"><strong>2020:</strong> Koordynacja międzybranżowa</div>
+    <div class="timeline-item"><strong>2021:</strong> Koordynacja międzybranżowa</div>
+      <div class="timeline-item"><strong>2022:</strong> Koordynacja międzybranżowa</div>
+        <div class="timeline-item"><strong>2023:</strong> Koordynacja międzybranżowa</div>
+  <div class="timeline-item"><strong>2024:</strong> Dokumentacja wykonawcza i modele zbrojenia</div>
+    <div class="timeline-item"><strong>2025:</strong> Dokumentacja wykonawcza i modele zbrojenia</div>
+</div>
+</section>
+
+<!-- USŁUGI -->
+<section id="services">
+<h2>Usługi</h2>
+<div class="services">
+  <div class="service-box">Modelowanie konstrukcji wraz ze zbrojeniem w Revit</div>
+  <div class="service-box">Koordynacja projektów BIM</div>
+  <div class="service-box">Modelowanie w Revit - outsourcing</div>
+  <div class="service-box">Wsparcie przy wdrożeniu BIM w biurze</div>
+    <div class="service-box">Szkolenia w firmach</div>
+  <div class="service-box">Obliczenia statyczne</div>
+</div>
+</section>
+
+<!-- KUP -->
+<section id="services">
+<h2>Kup Teraz</h2>
+  <div class="projects">
+
+    <div class="project-box">
+      <h3>Szablon Revit</h3>
+      <p>szablon dostosowany do pracy konstruktora</p>
+      <div class="btn-group">
+        <a href="">Zobacz</a>
+      </div>
+    </div>
+    <div class="project-box">
+      <h3>Skrypty Dynamo</h3>
+      <p>Szybkie skrypty przyspieszające pracę</p>
+      <div class="btn-group">
+        <a href="">Zobacz</a>
+      </div>
+    </div>
+
+    <div class="project-box">
+      <h3>Rodziny Revit</h3>
+      <p>Zestawienie przydatnych rodzin do wykorzystania w pracy dla konstruktora</p>
+      <div class="btn-group">
+        <a href="">Zobacz</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EBOOK -->
+<section id="ebook">
+<h2>Ebook</h2>
+<p>Obecnie pracuję nad podręcznikiem w formie ebooka, który będzie zawierał w sobie bazę najlepszych praktyk tworzenia modeli konstrukcyjnych,<br><br> porównania możliwych ścieżek prowadzenia projektu w programie Revit, <br> sposoby tworzenia modelu analitycznych do eksportu w Robot,<br> wyciskanie 100 procent w przypadku tworzenia modeli na podstawie podkładów 2D.</p>
+<div class="btn-group"><a href="#">Zapisz się / pobierz</a></div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+<h2>Kontakt</h2>
+<form>
+  <input type="text" placeholder="Imię i nazwisko" required>
+  <input type="email" placeholder="E-mail" required>
+  <textarea placeholder="Wiadomość" rows="4" required></textarea>
+  <button type="submit">Wyślij</button>
+</form>
+<p style="margin-top:12px;"><strong>Telefon:</strong> +48 000 000 000</p>
+<p><strong>LinkedIn:</strong> <a href="#">Profil</a></p>
+</section>
+
+</main>
+
+<footer>© 2026 – Mateusz Wawryca | Portfolio</footer>
+
+<script>
+  // --- Sekcje reveal on scroll ---
+  const sections = document.querySelectorAll("section");
+  const reveal = () => {
+    const trigger = window.innerHeight * 0.85;
+    sections.forEach(sec => {
+      const top = sec.getBoundingClientRect().top;
+      if(top < trigger){
+        sec.classList.add("revealed");
+      }
+    });
+  };
+  window.addEventListener("scroll", reveal);
+  window.addEventListener("load", reveal);
+
+  // --- Animate skill bars ---
+  const skills = document.querySelectorAll(".skill-bar-fill");
+  window.addEventListener("load", () => {
+    skills.forEach(bar => {
+      const width = bar.style.width;
+      bar.style.width = "0";
+      setTimeout(() => { bar.style.width = width; }, 300);
+    });
+  });
+
+  // --- Dark mode toggle ---
+  const toggle = document.getElementById("darkModeToggle");
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+  });
+</script>
+
+</body>
+</html>
