@@ -315,6 +315,35 @@ h2{
   text-align: center;
 }
 
+/* Styl dla sekcji "O mnie" z zdjęciem */
+.o-mnie-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.profile-photo {
+  flex-shrink: 0;
+}
+
+.o-mnie-text {
+  flex: 1;
+}
+
+/* Responsywność dla mniejszych ekranów */
+@media (max-width: 768px) {
+  .o-mnie-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-photo img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
 /* ---------- CONTACT FORM ---------- */
 form{
   display:flex;
@@ -407,14 +436,21 @@ button:hover{
 
 <!-- O MNIE -->
 <section id="o-mnie">
-<h2>O mnie</h2>
-<p>Jestem konstruktorem specjalizującym się w technologiach BIM. Tworzę precyzyjne modele konstrukcyjne, koordynuję branże, przygotowuję dokumentację oraz przeprowadzam obliczenia statyczne konstrukcji.</p>
-<div class="btn-group" style="margin-top:20px;">
-  <a href="https://service.usbim.com/link/ChI3JvacETOgt6JzWNVCnxeF">Zobacz CV</a>
-
-  <a href="https://i3ip4i.short.gy/cesium-stories">Pełna lista projektów</a>
-</div>
+  <h2>O mnie</h2>
+  <div class="o-mnie-container">
+    <div class="profile-photo">
+      <img src="https://twoj-link-do-zdjecia.jpg" alt="Mateusz Wawryca">
+    </div>
+    <div class="o-mnie-text">
+      <p>Jestem konstruktorem specjalizującym się w technologiach BIM. Tworzę precyzyjne modele konstrukcyjne, koordynuję branże, przygotowuję dokumentację oraz przeprowadzam obliczenia statyczne konstrukcji.</p>
+      <div class="btn-group" style="margin-top:20px;">
+        <a href="https://service.usbim.com/link/ChI3JvacETOgt6JzWNVCnxeF">Zobacz CV</a>
+        <a href="https://i3ip4i.short.gy/cesium-stories">Pełna lista projektów</a>
+      </div>
+    </div>
+  </div>
 </section>
+
 
 
 
@@ -617,6 +653,10 @@ button:hover{
 <!-- KONTAKT -->
 <section id="kontakt">
 <h2>Kontakt</h2>
+
+<p>Skorzystaj z Formularza kontaktowego lub gdy oferta dotyczy wykonania modelu 3D wypełnij ankietę dotyczącą Twojego zapytania w celu szybszej wyceny:
+<a href="https://forms.office.com/r/GPZn3P7K20">WYCENA</a>
+
 
 <style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1767598");</style>
     <style type="text/css">
@@ -1208,168 +1248,6 @@ button:hover{
       }
     </style>
 
-    
-  
-    
-    
-
-    
-    
-
-    
-    
-
-    
-
-      
-        
-        
-      
-
-      
-        
-        
-      
-
-      
-
-            
-            
-            
-            
-            
-            
-      
-
-      
-
-      
-        
-        
-         
-        
-        
-      
-
-        
-        
-        
-        
-        
-        
-      
-
-       
-
-        
-        
-        
-        
-        
-        
-        
-       
-
-
-      
-        
-        
-        
-        
-  
-
-
-
-  
-        
-        
-        
-      
-
-
-      
-    
-    
-    
-    
-    
-    
-    
-  
-
-  
-        
-        
-        
-        
-        
-      
-
-      
-        
-        
-        
-        
-        
-      
-
-      
-        
-        
-        
-        
-        
-      
-
-       
-
-        
-        
-        
-        
-       
-
-       
-        
-        
-        
-        
-      
-
-      
-        
-        
-        
-        
-        
-        
-        
-       
-
-    
-
-    
-
-
-      
-
-
-      
-
-      
-      
-
-      
-
-      
-
-
-
-
-
-    
-
-      
     <div id="mlb2-35381311" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-35381311">
       <div class="ml-form-align-center ">
         <div class="ml-form-embedWrapper embedForm">
@@ -1514,10 +1392,6 @@ button:hover{
       </div>
     </div>
 
-  
-
-  
-  
   <script>
     function ml_webform_success_35381311() {
       var $ = ml_jQuery || jQuery;
@@ -1576,5 +1450,4 @@ button:hover{
 </body>
 
 </html>
-
 
